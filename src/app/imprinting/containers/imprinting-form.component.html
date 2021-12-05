@@ -1,0 +1,118 @@
+<mat-card>
+  <mat-card-subtitle>목표 각인</mat-card-subtitle>
+  <mat-card-content>
+    <div *ngFor="let i of [0, 1, 2, 3, 4, 5, 6]">
+      <mat-form-field>
+        <mat-label> 각인{{ i + 1 }} </mat-label>
+        <input
+          type="text"
+          matInput
+          [(ngModel)]="target[i][0]"
+          [matAutocomplete]="auto"
+          appSelectOnFocus
+        />
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let option of filterImprint(target[i][0])"
+            [value]="option"
+          >
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field class="w-72">
+        <mat-label> 수치 </mat-label>
+        <mat-select [(ngModel)]="target[i][1]">
+          <mat-option [value]="0">미사용</mat-option>
+          <mat-option [value]="5">1레벨</mat-option>
+          <mat-option [value]="10">2레벨</mat-option>
+          <mat-option [value]="15">3레벨</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+</mat-card>
+<mat-card *ngFor="let stoneBook of stoneBooks; index as i">
+  <mat-card-subtitle>
+    <div class="flex-baseline">
+      장착 각인 #{{ i + 1 }}
+      <div class="filler"></div>
+      <button
+        *ngIf="stoneBooks.length > 1"
+        mat-icon-button
+        (click)="removeStoneBook(i)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div></mat-card-subtitle
+  >
+  <mat-card-content>
+    <div *ngFor="let i of [0, 1]">
+      <mat-form-field>
+        <mat-label> 각인{{ i + 1 }} </mat-label>
+        <mat-select [(ngModel)]="stoneBook.book[i][0]">
+          <mat-option
+            *ngFor="let option of getTargetImprints()"
+            [value]="option"
+          >
+            {{ option }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="w-72">
+        <mat-label> 수치 </mat-label>
+        <input
+          [(ngModel)]="stoneBook.book[i][1]"
+          matInput
+          type="number"
+          appSelectOnFocus
+        />
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+  <mat-card-subtitle>어빌리티 스톤 각인 #{{ i + 1 }}</mat-card-subtitle>
+  <mat-card-content>
+    <div *ngFor="let i of [0, 1]">
+      <mat-form-field>
+        <mat-label> 각인{{ i + 1 }} </mat-label>
+        <mat-select [(ngModel)]="stoneBook.stone[i][0]">
+          <mat-option
+            *ngFor="let option of getTargetImprints()"
+            [value]="option"
+          >
+            {{ option }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="w-72">
+        <mat-label> 수치 </mat-label>
+        <input
+          [(ngModel)]="stoneBook.stone[i][1]"
+          matInput
+          type="number"
+          appSelectOnFocus
+        />
+      </mat-form-field>
+    </div>
+    <mat-form-field>
+      <mat-label> 페널티 각인 </mat-label>
+      <mat-select [(ngModel)]="stoneBook.stonePenalty[0]">
+        <mat-option *ngFor="let option of penaltyOptions" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="w-72">
+      <mat-label> 수치 </mat-label>
+      <input
+        [(ngModel)]="stoneBook.stonePenalty[1]"
+        matInput
+        type="number"
+        appSelectOnFocus
+      />
+    </mat-form-field>
+  </mat-card-content>
+</mat-card>
+<button class="button-add" mat-stroked-button (click)="addStoneBook()">
+  <mat-icon>add</mat-icon>
+</button>

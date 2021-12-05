@@ -1,0 +1,138 @@
+<div class="container">
+  <div class="flex-baseline">
+    <h1 class="mat-h1">
+      각인 최적화
+      <a class="mat-caption link" href="https://icepeng.com/11" target="_blank"
+        >설명서</a
+      >
+    </h1>
+    <div class="grow"></div>
+    <button (click)="reset()" mat-stroked-button>초기화</button>
+  </div>
+  <div class="layout">
+    <app-imprinting-form
+      [target]="target"
+      [stoneBooks]="stoneBooks"
+    ></app-imprinting-form>
+  </div>
+  <div class="layout">
+    <app-acc-form [accMap]="accMap"></app-acc-form>
+  </div>
+  <div class="layout">
+    <mat-card>
+      <mat-card-subtitle>경매장 검색</mat-card-subtitle>
+      <mat-card-content>
+        <mat-radio-group [(ngModel)]="searchGrade">
+          <mat-radio-button value="유물">유물</mat-radio-button>
+          <mat-radio-button value="고대">고대</mat-radio-button>
+          <mat-radio-button value="전체">전체</mat-radio-button>
+        </mat-radio-group>
+      </mat-card-content>
+      <mat-card-content>
+        <button (click)="generate()" mat-raised-button color="primary">
+          검색 코드 복사
+        </button>
+      </mat-card-content>
+      <mat-card-subtitle>필터</mat-card-subtitle>
+      <mat-card-content>
+        <div>
+          <mat-form-field class="w-72">
+            <mat-label> 치명 </mat-label>
+            <input
+              [(ngModel)]="filter.effects['치명']"
+              matInput
+              type="number"
+            />
+          </mat-form-field>
+          <mat-form-field class="w-72">
+            <mat-label> 특화 </mat-label>
+            <input
+              [(ngModel)]="filter.effects['특화']"
+              matInput
+              type="number"
+            />
+          </mat-form-field>
+          <mat-form-field class="w-72">
+            <mat-label> 신속 </mat-label>
+            <input
+              [(ngModel)]="filter.effects['신속']"
+              matInput
+              type="number"
+            />
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label> 구매 후 거래가능 횟수 </mat-label>
+            <input [(ngModel)]="filter.tradeLeft" matInput type="number" />
+            <span matSuffix>회 이상</span>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label> 고대 등급 갯수 </mat-label>
+            <input
+              [(ngModel)]="filter.ancientCountMin"
+              matInput
+              type="number"
+            />
+            <span matSuffix>개 이상</span>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>허용할 페널티 각인</mat-label>
+            <mat-select [(ngModel)]="filter.allowedPenalties" multiple>
+              <mat-option
+                *ngFor="let penalty of penaltyOptions"
+                [value]="penalty"
+                >{{ penalty }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-checkbox [(ngModel)]="filter.hasBuyPrice"
+            >즉시구매 가능한 조합만 표시</mat-checkbox
+          >
+        </div>
+        <div>
+          <span>추가된 아이템 {{ additionalItems.length }}개</span>
+          <button (click)="addItemDialog()" mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
+          <button (click)="resetAdditionalItems()" mat-icon-button>
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        <div>
+          <span>제외된 아이템 {{ filter.exclude.size }}개</span>
+          <button (click)="resetExcludeFilter()" mat-icon-button>
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        <button (click)="applySearchResult()" mat-raised-button color="primary">
+          적용
+        </button>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="grow">
+      <mat-card-subtitle>추천 조합</mat-card-subtitle>
+      <mat-card-content>
+        <app-compose-table
+          [data]="composeResults"
+          [isLoading]="isLoading"
+          [progress]="progress"
+          [stoneBooks]="stoneBooks"
+          (exclude)="exclude($event)"
+        ></app-compose-table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<ng-adsense
+  [className]="'banner-slot'"
+  [adSlot]="8210305197"
+  [fullWidthResponsive]="true"
+  [adFormat]="'horizontal'"
+></ng-adsense>

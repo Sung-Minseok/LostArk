@@ -1,0 +1,42 @@
+<mat-toolbar class="navbar mat-elevation-z6" color="primary">
+  <a
+    routerLink="/"
+    routerLinkActive="nav-selected"
+    [routerLinkActiveOptions]="{ exact: true }"
+    mat-button
+    class="title"
+    >Lostark Calculator</a
+  >
+  <a routerLink="refining" routerLinkActive="nav-selected" mat-button
+    >재련 최적화</a
+  >
+  <a routerLink="imprinting" routerLinkActive="nav-selected" mat-button
+    >각인 최적화</a
+  >
+  <a routerLink="tripod" routerLinkActive="nav-selected" mat-button
+    >트포 도시락</a
+  >
+  <a routerLink="stone" routerLinkActive="nav-selected" mat-button
+    >어빌리티 스톤</a
+  >
+  <div class="filler"></div>
+  <button class="menu" mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>format_color_fill</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="lightTheme()">밝은 테마</button>
+    <button mat-menu-item (click)="darkTheme()">어두운 테마</button>
+  </mat-menu>
+  <a target="_blank" href="https://discord.gg/uCCp75c2aM" mat-button>Discord</a>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+    <mat-toolbar color="primary">
+      <div class="filler"></div>
+      <div class="mat-caption">Copyright © 2021 icepeng</div>
+      <a routerLink="donate" mat-button>후원하기</a>
+      <div class="filler"></div>
+    </mat-toolbar>
+  </mat-sidenav-content>
+</mat-sidenav-container>

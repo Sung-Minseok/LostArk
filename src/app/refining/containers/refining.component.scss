@@ -1,0 +1,36 @@
+.container {
+  margin: 20px;
+}
+
+.layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.materials {
+  min-width: 240px;
+}
+
+.material-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.notice {
+  width: 300px;
+}
+
+.refine-table {
+  flex-grow: 1;
+  flex-basis: 800px;
+}
+
+.tab-group-card {
+  max-height: calc(100vh - 156px);
+}
